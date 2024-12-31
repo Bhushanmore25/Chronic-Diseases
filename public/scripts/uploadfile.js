@@ -4,6 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadForm = document.getElementById('uploadForm');
     const fileList = document.getElementById('fileList');
 
+    fetch('/main/files')
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.files && data.files.length > 0) {
+                data.files.forEach((file) => {
+                    addFileToList(file.url);
+                });
+            } else {
+                console.log('No files found for this user.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching files:', error);
+        });
+
     dropzoneLabel.addEventListener('dragover', (e) => {
         e.preventDefault();
         dropzoneLabel.classList.add('dropzone-hover');
@@ -39,15 +54,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 body: formData,
             });
-            
+
+            if (response.status === 401) {
+                alert('Unauthorized! Please log in.');
+                window.location.href = '/user/login';
+                return;
+            }
 
             const data = await response.json();
 
             if (response.ok) {
                 alert('File uploaded successfully');
-                addFileToList(data.file.url);
+                addFileToList(data.data.uploads[data.data.uploads.length - 1].url);
             } else {
-                alert(data.message);
+                alert(`Error: ${data.message}`);
             }
         } catch (error) {
             console.error('Error uploading file:', error);
@@ -56,44 +76,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function addFileToList(url) {
+        if (!fileList) {
+            console.error('fileList element not found!');
+            return;
+        }
+    
+        const card = document.createElement('div');
+        card.className = 'card';
+    
+        const link = document.createElement('a');
+        link.href = url; 
+        link.target = '_blank'; 
+    
         const img = document.createElement('img');
         img.src = url;
         img.alt = 'Uploaded File';
-        img.style.width = '200px';
-        img.style.margin = '10px';
-        fileList.appendChild(img);
+    
+        const cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+        cardBody.textContent = 'Uploaded Image';
+    
+        link.appendChild(img);
+        card.appendChild(link);
+        card.appendChild(cardBody);
+    
+        fileList.appendChild(card);
     }
+    
 });
-
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const response = await fetch('/main/files', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch files');
-        }
-
-        const data = await response.json();
-
-        const gallery = document.getElementById('file-gallery');
-
-        // Append images to the gallery
-        data.files.forEach((file) => {
-            const img = document.createElement('img');
-            img.src = file.url;
-            img.alt = 'Uploaded File';
-            img.className = 'file-img'; // Optional class for consistent styling
-            gallery.appendChild(img);
-        });
-    } catch (error) {
-        console.error('Error loading files:', error);
-    }
-});
-
-
-

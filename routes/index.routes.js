@@ -4,7 +4,6 @@ import feedbackModel from "../models/feedback.model.js"
 import contactModel from "../models/contact.model.js";
 const router=express.Router();
 
-// router.get("/",auth,(req,res)=>{
 router.get("/",(req,res)=>{
     res.render("index");
 });

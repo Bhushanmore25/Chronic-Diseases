@@ -1,16 +1,15 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Early Detection of Chronic Diseases</title>
     <link rel="stylesheet" href="/styles/index2.css">
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"  rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
 </head>
 <body>
-    <!-- Sidebar Navigation -->
     <aside class="sidebar">
-        <h2>Menu</h2>
+        <h2><a href="/">Menu</a></h2>
         <ul>
             <li><a href="/features">Features Overview</a></li>
             <li><a href="/testimonials">Testimonials</a></li>
@@ -19,32 +18,24 @@
         </ul>
     </aside>
     <div class="upper">
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="heading-section">
-            <h1 class="main-heading">Early Detection of Chronic Diseases</h1>
-            <p class="description">Our platform helps monitor health indicators to catch signs of chronic diseases early, offering preventive care and health insights.</p>
-            <div class="buttons">
+        <main class="main-content">
+            <div class="heading-section">
+                <h1 class="main-heading">Early Detection of Chronic Diseases</h1>
+                <p class="description">Our platform helps monitor health indicators to catch signs of chronic diseases early, offering preventive care and health insights.</p>
                 <form id="uploadForm" action="/main/uploaddocs" method="post" enctype="multipart/form-data">
-                    <div class="flex items-center justify-center w-full">
-                        <label for="dropzone-file" class="dropzone ">
-                            <div class="dropzone-content">
-                                <svg class="dropzone-icon" style="cursor:'pointer'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                </svg>
-                                <p class="dropzone-text"><span class="dropzone-highlight">Click to upload</span> or drag and drop</p>
-                                <p class="dropzone-subtext">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                            </div>
-                            <input id="dropzone-file" type="file" name="file" class="hidden" />
-                        </label>
-                    </div>
-                    <button type="submit">Upload File</button>
+                    <label for="dropzone-file" class="dropzone">
+                        <div class="dropzone-content">
+                            <p class="dropzone-text"><span class="dropzone-highlight">Click to upload</span> or drag and drop</p>
+                        </div>
+                        <input id="dropzone-file" type="file" name="file" class="hidden" />
+                    </label>
+                    <button type="submit" id="upload">Upload File</button>
                 </form>
             </div>
-        </div>
-        
-    </main>
-    <div id="file-gallery"></div>
+            <div id="fileList" class="file-list">
+                <!-- Images will be dynamically added here as cards -->
+            </div>
+        </main>
     </div>
     <script src="/scripts/uploadfile.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>

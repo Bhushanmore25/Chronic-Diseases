@@ -3,7 +3,7 @@ function auth(req,res,next){
 
     if(!token)
     {
-        return res.redirect("/user/login")
+        return res.redirect("/users/login")
     }
     
     try {
@@ -13,7 +13,7 @@ function auth(req,res,next){
         return next();
 
     } catch (error) {
-        return res.redirect("/user/login")
+        return res.redirect("/users/login")
     }
 }
 

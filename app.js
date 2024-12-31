@@ -1,5 +1,5 @@
 import express from 'express';
-import userRoutes from './routes/user.routes.js'; // Correct path and extension
+import userRoutes from './routes/user.routes.js'; 
 import connectToDB from "./config/db.js";
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
